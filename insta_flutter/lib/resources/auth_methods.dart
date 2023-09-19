@@ -2,8 +2,9 @@ import "dart:typed_data";
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
+import "package:insta_flutter/resources/storage_methods.dart";
 
-class AuthMethods{
+class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -16,13 +17,29 @@ class AuthMethods{
     required Uint8List file,
   }) async {
     try {
-
-      if (email.isNotEmpty || password.isNotEmpty || userName.isNotEmpty || bio.isNotEmpty || file != null) {
+      if (email.isNotEmpty ||
+          password.isNotEmpty ||
+          userName.isNotEmpty ||
+          bio.isNotEmpty ||
+          file != null) {
         //register user
-        UserCredential cred = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-        
-        //add user to database
+        UserCredential cred = await _auth.createUserWithEmailAndPassword(
+            email: email, password: password);
 
+        String photoURL = await StorageMethods().uploadImagetoStorage("profilepics", file, false);
+        //add user to database
+        await _firestore.collection("users").doc(cred.user!.uid).set({
+          'username': userName,
+          'uid': cred.user!.uid,
+          'email': email,
+          'bio': bio,
+          'followers': [],
+          'following': [],
+          'photoURL': photoURL,
+        });
+
+
+        return "success";
       } else {
         return "failed";
       }

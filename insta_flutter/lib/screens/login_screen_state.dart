@@ -55,17 +55,22 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       const SizedBox(height: 24),
                       //login button
-                      Container(
-                          width: double.infinity,
-                          alignment: Alignment.center,
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          decoration: const ShapeDecoration(
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(5))),
-                            color: blueColor,
+                      InkWell(
+                          onTap: () {},
+                          child: Container(
+                            width: double.infinity,
+                            alignment: Alignment.center,
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            decoration: const ShapeDecoration(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5))
+                                  ),
+                              color: blueColor,
+                            ),
+                            child: const Text("Log in")
                           ),
-                          child: const Text("Log in")),
+                      ),
                       const SizedBox(height: 24),
                       Flexible(flex: 2, child: Container()),
                       //signup transition
