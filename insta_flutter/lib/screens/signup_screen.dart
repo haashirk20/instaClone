@@ -3,6 +3,7 @@ import "dart:typed_data";
 import "package:flutter/material.dart";
 import "package:flutter_svg/flutter_svg.dart";
 import "package:insta_flutter/resources/auth_methods.dart";
+import "package:insta_flutter/screens/login_screen_state.dart";
 import "package:insta_flutter/utils/colors.dart";
 import "package:insta_flutter/widgets/text_field_input.dart";
 import "package:insta_flutter/utils/utils.dart";
@@ -56,6 +57,10 @@ class _SignupScreenState extends State<SignupScreen> {
     setState(() {
       _isLoading = false;
     });
+  }
+
+  void navigateToLogin() {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginScreen()));
   }
 
   @override
@@ -149,6 +154,24 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       const SizedBox(height: 16),
                       Flexible(flex: 10, child: Container()),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(vertical: 8),
+                              child: const Text("Have an account? "),
+                            ),
+                            GestureDetector(
+                              onTap: navigateToLogin,
+                              child: Container(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8),
+                                child: const Text("Log in!",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
+                              ),
+                            )
+                          ])
                     ]))));
   }
 }

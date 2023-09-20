@@ -7,6 +7,7 @@ import 'package:insta_flutter/screens/signup_screen.dart';
 import 'package:insta_flutter/utils/colors.dart';
 import 'package:insta_flutter/reponsive/desktop_layout.dart';
 import 'package:firebase_core/firebase_core.dart';
+import "package:firebase_auth/firebase_auth.dart";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,8 +35,22 @@ class MyApp extends StatelessWidget {
       title: 'InstaClone',
       theme: ThemeData.dark()
           .copyWith(scaffoldBackgroundColor: mobileBackgroundColor),
-      //home: const ResponsiveLayout(desktopLayout: DesktopLayout(), mobileLayout: MobileLayout() ),
-      home: SignupScreen(),
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.active){
+            if(snapshot.hasData){
+              return const ResponsiveLayout(desktopLayout: DesktopLayout(), mobileLayout: MobileLayout());
+            } else if (snapshot.hasError){
+              return const Center(child: Text("Something went wrong"));
+            }
+          }
+          if(snapshot.connectionState == ConnectionState.waiting){
+            return const Center(child: CircularProgressIndicator(color: primaryColor));
+          }
+
+          return const LoginScreen();
+        })
     );
   }
 }

@@ -47,4 +47,23 @@ class AuthMethods {
       return e.message!;
     }
   }
+  
+  //logging in user
+  Future<String> loginUser({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      if (email.isNotEmpty || password.isNotEmpty) {
+        //register user
+        await _auth.signInWithEmailAndPassword(
+            email: email, password: password);
+        return "success";
+      } else {
+        return "Please enter all the fields";
+      }
+    } on FirebaseAuthException catch (e) {
+      return e.message!;
+    }
+  }
 }
