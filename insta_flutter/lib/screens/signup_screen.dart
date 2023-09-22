@@ -2,6 +2,9 @@ import "dart:typed_data";
 
 import "package:flutter/material.dart";
 import "package:flutter_svg/flutter_svg.dart";
+import 'package:insta_flutter/responsive/desktop_layout.dart';
+import 'package:insta_flutter/responsive/mobile_screen_layout.dart';
+import 'package:insta_flutter/responsive/responsive.dart';
 import "package:insta_flutter/resources/auth_methods.dart";
 import "package:insta_flutter/screens/login_screen_state.dart";
 import "package:insta_flutter/utils/colors.dart";
@@ -53,6 +56,8 @@ class _SignupScreenState extends State<SignupScreen> {
     
     if (res != "success") {
       showSnackBar(res, context);
+    } else{
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const ResponsiveLayout(desktopLayout: DesktopLayout(), mobileLayout: MobileLayout())));
     }
     setState(() {
       _isLoading = false;

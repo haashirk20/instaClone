@@ -1,5 +1,8 @@
 import "package:flutter/material.dart";
 import "package:flutter_svg/flutter_svg.dart";
+import 'package:insta_flutter/responsive/desktop_layout.dart';
+import 'package:insta_flutter/responsive/mobile_screen_layout.dart';
+import 'package:insta_flutter/responsive/responsive.dart';
 import "package:insta_flutter/utils/colors.dart";
 import "package:insta_flutter/utils/utils.dart";
 import "package:insta_flutter/widgets/text_field_input.dart";
@@ -36,6 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if(res == "success"){
       //navigate to home screen
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const ResponsiveLayout(desktopLayout: DesktopLayout(), mobileLayout: MobileLayout())));
     }
     else{
       //show error
