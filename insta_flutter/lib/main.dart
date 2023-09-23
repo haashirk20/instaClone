@@ -4,7 +4,6 @@ import 'package:insta_flutter/providers/user_provider.dart';
 import 'package:insta_flutter/responsive/mobile_Screen_Layout.dart';
 import 'package:insta_flutter/responsive/responsive.dart';
 import 'package:insta_flutter/screens/login_screen_state.dart';
-import 'package:insta_flutter/screens/signup_screen.dart';
 import 'package:insta_flutter/utils/colors.dart';
 import 'package:insta_flutter/responsive/desktop_layout.dart';
 import 'package:firebase_core/firebase_core.dart';

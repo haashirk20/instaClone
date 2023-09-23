@@ -1,20 +1,19 @@
 import "dart:typed_data";
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_auth/firebase_auth.dart";
-import "package:flutter/material.dart";
 import "package:insta_flutter/resources/storage_methods.dart";
-import "package:insta_flutter/models/user.dart" as UserModel;
+import "package:insta_flutter/models/user.dart" as user_model;
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<UserModel.User> getUserDetails() async {
+  Future<user_model.User> getUserDetails() async {
     User currentUser = _auth.currentUser!;
 
     DocumentSnapshot doc = await _firestore.collection("users").doc(currentUser.uid).get();
 
-    return UserModel.User.fromSnap(doc);
+    return user_model.User.fromSnap(doc);
   }
 
   // sign up user
@@ -30,6 +29,7 @@ class AuthMethods {
           password.isNotEmpty ||
           userName.isNotEmpty ||
           bio.isNotEmpty ||
+          // ignore: unnecessary_null_comparison
           file != null) {
         //register user
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
@@ -38,7 +38,7 @@ class AuthMethods {
         String photoURL = await StorageMethods().uploadImagetoStorage("profilepics", file, false);
         //add user to database
 
-        UserModel.User user = UserModel.User(
+        user_model.User user = user_model.User(
           uid: cred.user!.uid,
           email: email,
           userName: userName,
