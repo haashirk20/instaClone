@@ -3,12 +3,12 @@ import "package:image_picker/image_picker.dart";
 
 pickImage(ImageSource source) async {
   // ignore: deprecated_member_use
-  final ImagePicker _picker = ImagePicker();
+  final ImagePicker picker = ImagePicker();
 
-  XFile? _file = await _picker.pickImage(source: source);
+  XFile? file = await picker.pickImage(source: source);
 
-  if (_file != null){
-    return await _file.readAsBytes();
+  if (file != null){
+    return await file.readAsBytes();
   }
 
   print("No image selected");
