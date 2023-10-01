@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:insta_flutter/models/user.dart";
 import "package:insta_flutter/providers/user_provider.dart";
 import "package:insta_flutter/resources/firestore_methods.dart";
+import "package:insta_flutter/screens/comment_screen.dart";
 import "package:insta_flutter/utils/colors.dart";
 import "package:insta_flutter/widgets/like_animation.dart";
 import "package:intl/intl.dart";
@@ -105,7 +106,8 @@ class _PostCardState extends State<PostCard> {
                 duration: const Duration(milliseconds: 200),
                 opacity: isLikeAnimating ? 1 : 0,
                 child: LikeAnimation(
-                  child: const Icon(Icons.favorite, color: Colors.white, size: 120),
+                  child: const Icon(Icons.favorite,
+                      color: Colors.white, size: 120),
                   isAnimating: isLikeAnimating,
                   duration: const Duration(
                     milliseconds: 400,
@@ -135,11 +137,16 @@ class _PostCardState extends State<PostCard> {
                     widget.snap["likes"],
                   );
                 },
-                icon:  widget.snap["likes"].contains(user.uid) ? const Icon(Icons.favorite, color: Colors.red): const Icon(Icons.favorite_border),
+                icon: widget.snap["likes"].contains(user.uid)
+                    ? const Icon(Icons.favorite, color: Colors.red)
+                    : const Icon(Icons.favorite_border),
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => CommentsScreen(
+                        snap: widget.snap,
+                      ))),
               icon: const Icon(Icons.comment_outlined),
             ),
             IconButton(
@@ -205,7 +212,8 @@ class _PostCardState extends State<PostCard> {
               Container(
                 padding: EdgeInsets.symmetric(vertical: 4),
                 child: Text(
-                  DateFormat.yMMMd().format(widget.snap["datePublished"].toDate()),
+                  DateFormat.yMMMd()
+                      .format(widget.snap["datePublished"].toDate()),
                   style: const TextStyle(fontSize: 16, color: secondaryColor),
                 ),
               ),
