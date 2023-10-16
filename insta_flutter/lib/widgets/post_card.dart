@@ -1,10 +1,12 @@
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:flutter/material.dart";
+import "package:firebase_auth/firebase_auth.dart" as auth;
 import "package:insta_flutter/models/user.dart";
 import "package:insta_flutter/providers/user_provider.dart";
 import "package:insta_flutter/resources/firestore_methods.dart";
 import "package:insta_flutter/screens/comment_screen.dart";
 import "package:insta_flutter/utils/colors.dart";
+import "package:insta_flutter/utils/global_variables.dart";
 import "package:insta_flutter/utils/utils.dart";
 import "package:insta_flutter/widgets/like_animation.dart";
 import "package:intl/intl.dart";
@@ -39,6 +41,7 @@ class _PostCardState extends State<PostCard> {
   @override
   Widget build(BuildContext context) {
     final User user = Provider.of<UserProvider>(context).getUser;
+    final width = MediaQuery.of(context).size.width;
 
     return Container(
       color: mobileBackgroundColor,
@@ -74,7 +77,7 @@ class _PostCardState extends State<PostCard> {
                   onPressed: () {
                     showDialog(
                         context: context,
-                        builder: (context) => Dialog(
+                        builder: (context) =>Dialog(
                                 child: ListView(
                               padding: const EdgeInsets.symmetric(vertical: 16),
                               shrinkWrap: true,

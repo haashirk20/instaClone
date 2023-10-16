@@ -4,6 +4,7 @@ import 'package:insta_flutter/responsive/desktop_layout.dart';
 import 'package:insta_flutter/responsive/mobile_screen_layout.dart';
 import 'package:insta_flutter/responsive/responsive.dart';
 import "package:insta_flutter/utils/colors.dart";
+import "package:insta_flutter/utils/global_variables.dart";
 import "package:insta_flutter/utils/utils.dart";
 import "package:insta_flutter/widgets/text_field_input.dart";
 import "package:insta_flutter/resources/auth_methods.dart";
@@ -28,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
     _passwordController.dispose();
   }
 
-  void loginUser() async{
+  void loginUser() async {
     setState(() {
       _isLoading = true;
     });
@@ -37,21 +38,23 @@ class _LoginScreenState extends State<LoginScreen> {
       password: _passwordController.text,
     );
 
-    if(res == "success"){
+    if (res == "success") {
       //navigate to home screen
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const ResponsiveLayout(desktopLayout: DesktopLayout(), mobileLayout: MobileLayout())));
-    }
-    else{
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+              desktopLayout: DesktopLayout(), mobileLayout: MobileLayout())));
+    } else {
       //show error
       showSnackBar(res, context);
     }
-        setState(() {
+    setState(() {
       _isLoading = false;
     });
   }
 
   void navigateToSignUp() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SignupScreen()));
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const SignupScreen()));
   }
 
   @override
@@ -59,21 +62,24 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
         body: SafeArea(
             child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 32),
+                padding: MediaQuery.of(context).size.width > webScreenSize
+                    ? EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width / 3)
+                    : const EdgeInsets.symmetric(horizontal: 32),
                 width: double.infinity,
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Flexible(flex: 1, child: Container()),
+                      Flexible(flex: 2, child: Container()),
                       //svg image
                       SvgPicture.asset("assets/ic_instagram.svg",
                           colorFilter: const ColorFilter.mode(
                               primaryColor, BlendMode.srcIn),
                           height: 64),
                       //text field input for user/email
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 64),
                       TextFieldInput(
-                        hintText: "Enter your Username or Email",
+                        hintText: "Enter your Email",
                         textInputType: TextInputType.emailAddress,
                         textEditingController: _emailController,
                       ),
@@ -89,42 +95,47 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(height: 24),
                       //login button
                       InkWell(
-                          onTap: loginUser,
-                          child: Container(
+                        onTap: loginUser,
+                        child: Container(
                             width: double.infinity,
                             alignment: Alignment.center,
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             decoration: const ShapeDecoration(
                               shape: RoundedRectangleBorder(
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(5))
-                                  ),
+                                      BorderRadius.all(Radius.circular(4))),
                               color: blueColor,
                             ),
-                            child: _isLoading? const Center(child: CircularProgressIndicator(color: primaryColor)): const Text("Log in")
-                          ),
+                            child: _isLoading
+                                ? const Center(
+                                    child: CircularProgressIndicator(
+                                        color: primaryColor))
+                                : const Text("Log in")),
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 12),
                       Flexible(flex: 2, child: Container()),
                       //signup transition
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: const Text("Don't have an account? "),
-                            ),
-                            GestureDetector(
-                              onTap: navigateToSignUp,
-                              child: Container(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8),
-                                child: const Text("Sign up!",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold)),
+                      Expanded(
+                        flex: 2,
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(vertical: 8),
+                                child: const Text("Don't have an account? "),
                               ),
-                            )
-                          ])
+                              GestureDetector(
+                                onTap: navigateToSignUp,
+                                child: Container(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 8),
+                                  child: const Text("Sign up!",
+                                      style:
+                                          TextStyle(fontWeight: FontWeight.bold)),
+                                ),
+                              )
+                            ]),
+                      )
                     ]))));
   }
 }

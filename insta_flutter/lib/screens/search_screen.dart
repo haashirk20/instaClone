@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import "package:insta_flutter/screens/profile_screen.dart";
 import "package:insta_flutter/utils/colors.dart";
+import "package:insta_flutter/utils/global_variables.dart";
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -14,6 +15,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController searchController = TextEditingController();
   bool isShowUsers = false;
+  bool isLoading = false;
 
   @override
   void dispose() {
@@ -79,14 +81,18 @@ class _SearchScreenState extends State<SearchScreen> {
                       mainAxisSpacing: 8,
                       crossAxisSpacing: 8,
                       repeatPattern: QuiltedGridRepeatPattern.inverted,
-                      pattern: [
+                      pattern: MediaQuery.of(context).size.width > webScreenSize?[
+                        const QuiltedGridTile(1, 1),
+                        const QuiltedGridTile(1, 1),
+                        const QuiltedGridTile(1, 1),
+                      ]:[
                         const QuiltedGridTile(2, 2),
                         const QuiltedGridTile(1, 1),
                         const QuiltedGridTile(1, 1),
                       ],
                     ),
                     childrenDelegate: SliverChildBuilderDelegate(
-                      (context, index) => Image.network((snapshot.data! as dynamic).docs[index]["postUrl"]),
+                      (context, index) => FittedBox(fit: BoxFit.fill, child: Image.network((snapshot.data! as dynamic).docs[index]["postUrl"])),
                       childCount: (snapshot.data! as dynamic).docs.length,
                     ),
                   );

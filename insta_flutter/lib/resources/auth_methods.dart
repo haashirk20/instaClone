@@ -78,4 +78,9 @@ class AuthMethods {
       return e.message!;
     }
   }
+
+  //sign out user
+  Future<void> signOut() async {
+    await _auth.signOut();
+  }
 }
