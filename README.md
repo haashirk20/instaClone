@@ -5,7 +5,7 @@ A recreation of the popular social media app "Instagram" using Flutter and Fireb
 Download the source code from Github.
 
 # Usage
-As of right now, there is no official executable file, thus the source code must be run. This means that Flutter and Dart have to be installed on your systme. To launch the app:
+As of right now, there is no official executable file, thus the source code must be run. This means that Flutter and Dart have to be installed on your system. To launch the app:
 1. Navigate to the "insta_flutter" folder in terminal
 2. run the following command:
 ```bash
