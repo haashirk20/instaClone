@@ -6,8 +6,6 @@ A photo-sharing app modelled on Instagram, built with Flutter and Firebase. It r
 ![Flutter](https://img.shields.io/badge/Flutter-02569B?logo=flutter&logoColor=white)
 ![Firebase](https://img.shields.io/badge/Firebase-Auth%20%7C%20Firestore%20%7C%20Storage-FFCA28?logo=firebase&logoColor=black)
 
-> The app's source is on the [`develop`](https://github.com/haashirk20/instaClone/tree/develop) branch. `main` still holds the starter Flutter project.
-
 ## Demo
 
 <!-- TODO: demo link or video -->
@@ -75,7 +73,7 @@ flowchart LR
 Requires the Flutter SDK (Dart 3.1.2 or later) and a Firebase project with Auth (email/password), Firestore and Storage turned on.
 
 ```sh
-git clone -b develop https://github.com/haashirk20/instaClone.git
+git clone https://github.com/haashirk20/instaClone.git
 cd instaClone/insta_flutter
 flutter pub get
 flutter run -d chrome --web-renderer html
